@@ -1,8 +1,12 @@
 import { Moon } from "lucide-react";
 import { useState } from "react";
-import Text from "./components/Text";
+import Text from "../components/Text";
+import { useParams } from "react-router-dom";
+import LobbyCode from "../components/LobbyCode";
+import Navbar from "../components/Navbar";
 
-function App() {
+function Test() {
+  const { lobbyCode } = useParams();
   const TypingText =
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem suscipit fugiat consectetur ex rerum quam, dignissimos dolores nisi, beatae minima deleniti vero nulla recusandae eaque!";
   const [typedText, setTypedText] = useState(TypingText);
@@ -13,12 +17,7 @@ function App() {
     <>
       <Navbar />
       <div className="flex flex-col gap-2 items-center h-full w-full">
-        <div className="text-center mt-10 console-text">
-          <span className="bg-gray-200 p-3 rounded-md">
-            Lobby Code: <span className="font-bold">69420</span>
-          </span>
-        </div>
-
+        <LobbyCode code={lobbyCode} />
         <div className="h-[300px] console-text flex items-center justify-center">
           <div className="typing-test w-[1600px] leading-[2] font-light pl-10 ml-10 items-center text-3xl text-center pr-10 mr-10">
             <span>
@@ -40,7 +39,7 @@ function App() {
               setCorrectText(correctText + typedCharacter);
             } else {
               setTypedText(typedText.slice(1));
-              setIncorrectText(incorrectText + typedCharacter);
+              setIncorrectText(incorrectText + typedText[0]);
             }
           }}
           className="outline-none text-white"
@@ -51,4 +50,4 @@ function App() {
   );
 }
 
-export default App;
+export default Test;
