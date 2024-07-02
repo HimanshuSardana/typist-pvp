@@ -7,13 +7,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./index.css";
-import Test from "./routes/Test.jsx";
+import WaitingLobby from "./components/WaitingLobby.jsx";
+import Lobby from "./routes/Lobby.jsx";
 import LobbyPage from "./components/LobbyPage.jsx";
 
 const router = createBrowserRouter([
   {
+    path: "/lobby/:lobbyCode/start",
+    element: <Lobby />,
+  },
+  {
     path: "/lobby/:lobbyCode",
-    element: <Test />,
+    element: <WaitingLobby />,
   },
   {
     path: "/",

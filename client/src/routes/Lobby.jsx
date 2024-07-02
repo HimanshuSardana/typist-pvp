@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import LobbyCode from "../components/LobbyCode";
 import Navbar from "../components/Navbar";
 
-function Test() {
+function Lobby() {
   const { lobbyCode } = useParams();
   const TypingText =
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem suscipit fugiat consectetur ex rerum quam, dignissimos dolores nisi, beatae minima deleniti vero nulla recusandae eaque!";
@@ -50,4 +50,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default Lobby;

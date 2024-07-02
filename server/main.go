@@ -19,7 +19,7 @@ func GenerateTest(words []string, length int) string {
 	})
 
 	selected := words[:length]
-	return strings.Join(selected, " ")
+	return string(strings.Join(selected, " "))
 }
 
 func main() {
@@ -126,12 +126,22 @@ func main() {
 		"your",
 	}
 
-	test_length := 25
 
 	app := fiber.New()
-	app.Get("/", func (c *fiber.Ctx) error {
-		return c.SendString(GenerateTest(words, test_length))
-	})
 
+	app.Get("/generate/:length", func(c *fiber.Ctx) error {
+		testLength, err := c.ParamsInt("length")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// Generate random text based on words list and specified length
+		testData := GenerateTest(words, testLength)
+
+		// Return JSON response
+		return c.JSON(fiber.Map{
+			"text": testData,
+		})
+	})
 	log.Fatal(app.Listen(":3000"))
 }
