@@ -3,9 +3,12 @@ import { useState } from "react";
 import Text from "../components/Text";
 import { useParams } from "react-router-dom";
 import LobbyCode from "../components/LobbyCode";
+import io from "socket.io-client";
 import Navbar from "../components/Navbar";
 
 function Lobby() {
+  const server = io("https://localhost:3000");
+  server.emit("connection", "hello");
   const { lobbyCode } = useParams();
   const TypingText =
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem suscipit fugiat consectetur ex rerum quam, dignissimos dolores nisi, beatae minima deleniti vero nulla recusandae eaque!";
