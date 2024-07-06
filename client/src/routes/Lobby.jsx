@@ -10,8 +10,7 @@ function Lobby() {
   const server = io("https://localhost:3000");
   server.emit("connection", "hello");
   const { lobbyCode } = useParams();
-  const TypingText =
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem suscipit fugiat consectetur ex rerum quam, dignissimos dolores nisi, beatae minima deleniti vero nulla recusandae eaque!";
+  const TypingText = "Lorem ipsum dolor sit";
   const [typedText, setTypedText] = useState(TypingText);
   const [correctText, setCorrectText] = useState("");
   const [incorrectText, setIncorrectText] = useState("");
@@ -37,6 +36,9 @@ function Lobby() {
           type="text"
           onChange={(e) => {
             let typedCharacter = e.target.value[e.target.value.length - 1];
+            if (typedText == undefined) {
+              console.log("congrats");
+            }
             if (typedCharacter == typedText[0]) {
               setTypedText(typedText.slice(1));
               setCorrectText(correctText + typedCharacter);
