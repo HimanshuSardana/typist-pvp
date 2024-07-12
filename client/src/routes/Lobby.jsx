@@ -7,11 +7,14 @@ import io from "socket.io-client";
 import Navbar from "../components/Navbar";
 import Results from "../components/Results";
 
+const socket = io.connect("http://localhost:3000");
+
 function Lobby() {
-  // const server = io("https://localhost:3000");
-  // server.emit("connection", "hello");
   const { lobbyCode } = useParams();
-  const TypingText = "Lorem ipsum dolor sit";
+  let TypingText = "";
+  fetch("https://localhost:3000/generate/25").then(
+    (resp) => (TypingText = resp)
+  );
   const [typedText, setTypedText] = useState(TypingText);
   const [correctText, setCorrectText] = useState("");
   const [incorrectText, setIncorrectText] = useState("");
@@ -39,7 +42,14 @@ function Lobby() {
                   text={incorrectText}
                   className="font-bold text-red-500 underline"
                 />
-                <Text text={typedText} className="dark:text-zinc-500" />
+                <Text
+                  text={typedText[0]}
+                  className="dark:text-zinc-500 underline"
+                />
+                <Text
+                  text={typedText.slice(1)}
+                  className="dark:text-zinc-500"
+                />
               </span>
             </div>
             <br />

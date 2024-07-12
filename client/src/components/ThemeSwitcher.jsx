@@ -6,8 +6,12 @@ function ThemeSwitcher() {
   const [currTheme, setCurrThenme] = useState(
     document.body.classList.contains("dark") ? "dark" : "light"
   );
+
   return (
-    <div className="stroke-black dark:stroke-white">
+    <div
+      className="stroke-black dark:stroke-white"
+      onClick={console.log("hello")}
+    >
       {currTheme == "dark" ? (
         <SunIcon className="stroke-white" />
       ) : (
