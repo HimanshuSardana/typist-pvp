@@ -15,7 +15,7 @@ function WaitingLobby() {
   const [playerCreated, setPlayerCreated] = useState(false);
   const [players, setPlayers] = useState([]);
   const params = useParams();
-  const lobbyCode = params["lobbyCode"];
+  const lobbyCode = params.lobbyCode;
 
   useEffect(() => {
     const handleReceiveUser = (message) => {
@@ -34,6 +34,14 @@ function WaitingLobby() {
     console.log(players);
   }, [players]);
 
+  const joinLobby = () => {
+    if (tempName) {
+      setName(tempName);
+      setPlayerCreated(true);
+      socket.emit("join-lobby", { name: tempName, lobbyCode });
+    }
+  };
+
   return (
     <div className="h-screen dark:bg-zinc-900">
       <Navbar />
@@ -51,14 +59,7 @@ function WaitingLobby() {
             />
             <button
               className="pl-5 pr-5 pt-3 rounded-md pb-3 bg-blue-500 text-white font-bold"
-              onClick={() => {
-                setName(tempName);
-                setPlayerCreated(true);
-                console.log(tempName);
-                setPlayers([tempName, ...players]);
-                console.log(players);
-                socket.emit("join-lobby", { name: tempName });
-              }}
+              onClick={joinLobby}
             >
               Join Lobby
             </button>
@@ -101,7 +102,9 @@ function WaitingLobby() {
                   <h1 className="text-3xl font-black text-blue-500">
                     {player}
                   </h1>
-                  <h3 className="text-zinc-500 text-xl">Leader</h3>
+                  <h3 className="text-zinc-500 text-xl">
+                    {key == 0 ? "Leader" : "Player"}
+                  </h3>
                   {key == players.indexOf(name) && (
                     <span className="absolute top-0 right-0 px-3 py-2 rounded-bl-md bg-blue-500 text-zinc-800">
                       You
