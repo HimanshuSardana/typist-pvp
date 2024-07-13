@@ -1,5 +1,5 @@
 import { Moon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Text from "../components/Text";
 import { useParams } from "react-router-dom";
 import LobbyCode from "../components/LobbyCode";
@@ -11,11 +11,9 @@ const socket = io.connect("http://localhost:3000");
 
 function Lobby() {
   const { lobbyCode } = useParams();
-  let TypingText = "";
-  fetch("https://localhost:3000/generate/25").then(
-    (resp) => (TypingText = resp)
-  );
-  const [typedText, setTypedText] = useState(TypingText);
+  const [TypingText, setTypingText] = useState("");
+
+  const [typedText, setTypedText] = useState("");
   const [correctText, setCorrectText] = useState("");
   const [incorrectText, setIncorrectText] = useState("");
 
@@ -27,6 +25,16 @@ function Lobby() {
   const [wpm, setWpm] = useState(0);
   const [acc, setAcc] = useState(0);
   const [time, setTime] = useState(0);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/generate/25")
+      .then((resp) => resp.text())
+      .then((respText) => {
+        setTypingText(respText);
+        setTypedText(respText); // Initialize typedText with fetched text
+      })
+      .catch((error) => console.error("Error fetching text:", error));
+  }, [socket]);
 
   return (
     <div className="h-screen">

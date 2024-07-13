@@ -66,9 +66,9 @@ function WaitingLobby() {
         </div>
       ) : (
         <div className="ml-20 mt-10 mr-20">
-          <div className="flex flex-row justify-between items-center gap-5">
+          <div className="flex sm:flex-col md:flex-row justify-between items-center gap-5">
             <LobbyCode code={lobbyCode} />
-            <div className="flex gap-5">
+            <div className="flex gap-5 md:flex-row sm:flex-col">
               <button
                 disabled={players.length == 0}
                 className={
@@ -79,7 +79,7 @@ function WaitingLobby() {
               >
                 {players.length == 1 ? "Waiting for Players" : "Start Test"}
               </button>
-              <button className="hover:bg-red-100 transition transition-[500] pl-5 pr-5 p-3 text-red-500 font-bold text-lg rounded-md">
+              <button className="transition transition-[500] pl-5 pr-5 p-3 text-red-500 font-bold text-lg rounded-md">
                 Delete Lobby
               </button>
             </div>
