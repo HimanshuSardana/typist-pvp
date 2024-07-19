@@ -20,6 +20,7 @@ function WaitingLobby() {
 
 	useEffect(() => {
 		const handleReceiveUser = (message) => {
+			console.log(message.text);
 			setPlayers(message.usersArr);
 			setLeader(players[0])
 			console.log(message.usersArr);
